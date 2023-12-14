@@ -15,8 +15,12 @@ def add_to_cart(request):
     item=False
     for i in c:
         if i.product_id==product_id:
-            i.update_quantity(quantity)
-            item=True
+            i.quantity += int(quantity)  # Update quantity directly
+            i.save()
+            item = True
+
+            #i.update_quantity(quantity)
+            #item=True
 
     if not item:
         ca= Cart(cart_id=cart_id(request),price=p.price,quantity=quantity,product_id=product_id)  
@@ -28,6 +32,14 @@ def total(request):
     items=get_cart(request)
     t=0
     for i in items:
-        t+=i.total()
-    return t    
+        #t+=i.total()
+        t += i.price * i.quantity
+    return t
+'''def total(request):
+    items = get_cart(request)
+    t = 0
+    for i in items:
+        t += i.total_price  # Access the 'total_price' attribute or method from your Cart model
+    return t  # Ensure the return statement is outside the loop to calculate the total correctly'''
+  
 

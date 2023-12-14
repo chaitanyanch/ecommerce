@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure--hv1l#^m$8s*0fkxb&(x4)wjx1+xu+c3)k9kzzbneh%5pbi(^7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["ecomchitanya-env.eba-zsprtp5e.eu-north-1.elasticbeanstalk.com"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myapp',
     'paypal.standard.ipn',
+    'registration',
 ]
 
 MIDDLEWARE = [
@@ -122,9 +123,20 @@ STATIC_ROOT = 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
+LOGIN_REDIRECT_URL='/'
+REGISTRATION_OPEN=True  
+ACCOUNT_AUTHENTICATED_REGISTRATION_REDIRECTS=False
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
 # Older versions of Django that use os module for path traversal do this instead
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\','/')
 PAYPAL_TEST = True
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'chaitanya4656@gmail.com'
+EMAIL_HOST_PASSWORD = 'ikye yiej rpzu rnld'
+EMAIL_USE_TLS = True
+REGISTRATION_EMAIL_SUBJECT_PREFIX = '[Ecommerce]'
